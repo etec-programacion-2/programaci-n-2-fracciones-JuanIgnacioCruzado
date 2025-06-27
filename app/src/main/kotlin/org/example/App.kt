@@ -1,10 +1,15 @@
-
-
 package org.example
 
 fun main() {
-    val fraccion = Fraccion(3, 4)
+    val fraccion1 = Fraccion(3, 4)
+    val fraccion2 = Fraccion(5, 6)
 
-    println("Fracción: ${fraccion}")
+    println("Fracción 1: $fraccion1")
+    println("Fracción 2: $fraccion2")
+
+    val suma = fraccion1 + fraccion2
+    println("Suma: $suma")
+
+    val resta = fraccion1 - fraccion2
+    println("Resta: $resta")
 }
-
