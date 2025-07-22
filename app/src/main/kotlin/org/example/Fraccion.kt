@@ -1,13 +1,15 @@
 package org.example
 
 class Fraccion(
-    private var _numerador : Int,
+    private var _numerador: Int,
     private var _denominador: Int
-) {
+) : Comparable<Fraccion> {
+
     var numerador: Int
         get() = _numerador
         set(value) {
             _numerador = value
+            simplificar()
         }
 
     var denominador: Int
@@ -15,6 +17,7 @@ class Fraccion(
         set(value) {
             require(value != 0) { "El denominador no puede ser cero." }
             _denominador = value
+            simplificar()
         }
 
     init {
@@ -47,6 +50,32 @@ class Fraccion(
         return Fraccion(nuevoNumerador, nuevoDenominador)
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Fraccion) return false
+        return this.numerador == other.numerador && this.denominador == other.denominador
+    }
+
+    override fun compareTo(otra: Fraccion): Int {
+        val diferencia = this.numerador * otra.denominador - otra.numerador * this.denominador
+        return diferencia.compareTo(0)
+    }
+
+    fun esMayor(otra: Fraccion): Boolean = this > otra
+
+    fun esMenor(otra: Fraccion): Boolean = this < otra
+
+    fun aDecimal(): Double = numerador.toDouble() / denominador
+
+    companion object {
+        fun desdeDecimal(decimal: Double): Fraccion {
+            val precision = 1_000_000
+            val numerador = (decimal * precision).toInt()
+            val denominador = precision
+            return Fraccion(numerador, denominador)
+        }
+    }
+
     private fun simplificar() {
         val mcd = mcd(_numerador, _denominador)
         _numerador /= mcd
@@ -66,10 +95,6 @@ class Fraccion(
             y = resto
         }
         return x
-    }
-
-    fun obtenerValor(): String {
-        return toString()
     }
 
     override fun toString(): String {
