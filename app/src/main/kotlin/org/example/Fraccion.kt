@@ -34,6 +34,19 @@ class Fraccion(
         return Fraccion(nuevoNumerador, nuevoDenominador)
     }
 
+    operator fun times(otra: Fraccion): Fraccion {
+        val nuevoNumerador = this.numerador * otra.numerador
+        val nuevoDenominador = this.denominador * otra.denominador
+        return Fraccion(nuevoNumerador, nuevoDenominador)
+    }
+
+    operator fun div(otra: Fraccion): Fraccion {
+        require(otra.numerador != 0) { "No se puede dividir por una fracción con numerador 0 (división por cero)." }
+        val nuevoNumerador = this.numerador * otra.denominador
+        val nuevoDenominador = this.denominador * otra.numerador
+        return Fraccion(nuevoNumerador, nuevoDenominador)
+    }
+
     private fun simplificar() {
         val mcd = mcd(_numerador, _denominador)
         _numerador /= mcd

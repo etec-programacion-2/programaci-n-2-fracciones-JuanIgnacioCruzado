@@ -12,4 +12,10 @@ fun main() {
 
     val resta = fraccion1 - fraccion2
     println("Resta: $resta")
+
+    val multiplicacion = fraccion1 * fraccion2
+    println("Multiplicación: $multiplicacion")
+
+    val division = fraccion1 / fraccion2
+    println("División: $division")
 }
